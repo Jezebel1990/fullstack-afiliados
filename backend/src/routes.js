@@ -5,6 +5,17 @@ const multer = require('multer');
 const router = express.Router();// Create the router instance
 
 
+import UserController from './app/controllers/UserController';
+
+router.get('/users', UserController.index);
+router.get('/users/:id', UserController.show);
+
+
+
+
+
+
+
 //Multer configuration for file upload
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
