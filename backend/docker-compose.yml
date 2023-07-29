@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  transactions-db:
+    image: postgres:12
+    container_name: transactions-db
+    hostname: transactions-db
+    env_file:
+      - ./.env
+    ports:
+      - '65432:5432'
+  
+  transactions-api:
+    image: node:14
+    container_name: transactions-api
+    volumes:
+      - ./src:/home/app/src
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - '4000:3000'
+    environment:
+      NODE_ENV: development
+      WAIT_HOSTS: transactions-db:5432
+    depends_on:
+      - transactions-db
+    command: sh -c "/wait && npm run db:migrate && npm run db:seed && npm run start"
