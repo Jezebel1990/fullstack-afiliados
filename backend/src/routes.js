@@ -3,8 +3,10 @@ import { Router } from 'express';
 
 const routes = Router();// Create the router instance
 
-
+import AuthController from './app/controllers/AuthController';
 import UserController from './app/controllers/UserController';
+
+routes.post('/auth', AuthController.create);
 
 routes.get('/users', UserController.index);
 routes.get('/users/:id', UserController.show);
