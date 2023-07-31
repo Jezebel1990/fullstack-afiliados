@@ -74,9 +74,7 @@ async update(request, response) {
     }).noUnknown();
 
     try {
-      const { id } = request.params;
-
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(request.userId);
 
 
       if (!user) {

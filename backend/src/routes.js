@@ -6,12 +6,16 @@ const routes = Router();// Create the router instance
 import AuthController from './app/controllers/AuthController';
 import UserController from './app/controllers/UserController';
 
+import authMiddleware from './app/middlewares/authMiddleware';
+
 routes.post('/auth', AuthController.create);
+routes.post('/users', UserController.create);
+
+routes.use(authMiddleware);
 
 routes.get('/users', UserController.index);
 routes.get('/users/:id', UserController.show);
-routes.post('/users', UserController.create);
-routes.put('/users/:id', UserController.update);
+routes.put('/users', UserController.update);
 
 
 
