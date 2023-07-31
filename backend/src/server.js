@@ -1,14 +1,14 @@
-import './database';
+import express from 'express';
+import routes from './routes';
 
-const express = require('express');
+import './database';
 
 const app = express()
 const port = 3000;
 
-//Import the routes
-const routes = require('./routes');
+app.use(express.json());
 
-app.use('/', routes);
+app.use(routes);
 
 app.listen(port, () => {
    console.log(`Servidor rodando em http://localhost:${port}`);

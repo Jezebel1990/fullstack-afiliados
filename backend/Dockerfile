@@ -9,6 +9,7 @@ COPY ./.env /home/app/
 COPY ./.sequelizerc /home/app/.sequelizerc
 
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait /wait
+
 RUN chmod +x /wait
 
 RUN npm install
