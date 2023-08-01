@@ -13,8 +13,8 @@ export const CustomButton = styled.button`
 
   ${props => props.disabled === false &&`
     &:hover {
-      background-color: #3bd42d;
-      color: #9cf27f;
+      background-color: #FFF;
+      color: #3bd42d;
     }
   `}
 

@@ -2,12 +2,13 @@ import React, {useState} from "react";
 import { Container, Form } from "./styles";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
-
+import { validateEmail, validatePassword } from "../../Utils/validators";
 
 const Login = () => {
- const [loading, setLoading] = useState(false)
+ const [loading, setLoading] = useState()
+ const [form, setForm] = useState([])
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
     try {
         setLoading(true) //usuário clicou e está carregando
@@ -21,8 +22,14 @@ const Login = () => {
 
    const handleChange = (event) => {
     console.log('Digitando...', event.target.name, event.target.value)
+    setForm({...form, [event.target.name]: event.target.value})
+    console.log('Form', form)
    }
 
+   const validateInput = () => {
+    return validateEmail(form.email) && validatePassword(form.password)
+   }
+console.log('Form está válido?', validateInput())
 
 
     return (
@@ -44,8 +51,9 @@ const Login = () => {
         type='submit'
         text='Entrar'
         onClick={handleSubmit}
+        disabled={loading === true || !validateInput()}
         />
-        <h1>Já estuda aqui?</h1>
+        <h1>Já tem conta?</h1>
         <div>
           <p>Não possui conta?</p>
           <a>Cadastrar</a>
