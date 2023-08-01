@@ -18,6 +18,7 @@ export const Form = styled.form`
     flex-direction: column;
     align-items: center;
     background-color: #201d1d;
+    border: 2px solid #9cf27f;
     border-radius: 5px;
     width: 100%;
     max-width: 450px;
