@@ -18,9 +18,8 @@ module.exports = {
         allowNull: false,
       },
       signal: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING(1),
         allowNull: false,
-        defaultValue: true
       },
     });
   },
