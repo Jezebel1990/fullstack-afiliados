@@ -8,6 +8,8 @@ import UserController from './app/controllers/UserController';
 
 import authMiddleware from './app/middlewares/authMiddleware';
 
+import InputfileController from '/app/controllers/InputfileController';
+
 routes.post('/auth', AuthController.create);
 routes.post('/users', UserController.create);
 
@@ -17,6 +19,7 @@ routes.get('/users', UserController.index);
 routes.get('/users/:id', UserController.show);
 routes.put('/users', UserController.update);
 
+routes.post('/inputfiles', InputfileController.createInputFile);
 
 
 
