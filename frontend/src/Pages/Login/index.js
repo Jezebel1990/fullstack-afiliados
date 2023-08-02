@@ -3,6 +3,9 @@ import { Container, Form } from "./styles";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import { validateEmail, validatePassword } from "../../Utils/validators";
+import UserService from "../../Services/UserService";
+
+const userServive = new UserService()
 
 const Login = () => {
  const [loading, setLoading] = useState()
@@ -12,7 +15,13 @@ const Login = () => {
         event.preventDefault();
     try {
         setLoading(true) //usuário clicou e está carregando
-        alert('Login')
+        const response = await userServive.login(form)
+        console.log('response Login', response)
+        if (response === true) {
+            alert('Usuário Logado com Sucesso')
+            //navegar para a  Home
+        }
+     
         setLoading(false)
     }
     catch (err) {
