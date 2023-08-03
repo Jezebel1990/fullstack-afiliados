@@ -1,58 +1,67 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Container, Form, SubContainerSign } from "./styles";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
-import { validateEmail, validatePassword, validateName, validateConfirmPassword } from "../../Utils/validators";
-import UserService from "../../Services/UserService";
+import { validateEmail, validatePassword, validateName,validateConfirmPassword } from "../../Utils/validators";
+import userService from "../../Services/UserService";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const userServive = new UserService()
-
 const Register = () => {
- const [loading, setLoading] = useState()
- const [form, setForm] = useState([])
- const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      try {
-        setLoading(true) //usuário clicou e está carregando
-        const { data } = await userServive.register({
-            name: form.name,
-            email: form.email,
-            password: form.password,
-        })
-        if (data) {
-          const responseLogin = await userServive.login({
-            email: form.email,
-            password: form.password
-          })
-          if (responseLogin === true) {
-            alert('Usuário cadastrado com Sucesso')
-            navigate('/home')
-          }
-        }
-        setLoading(false)
-    }
-    catch (err) {
-        alert('Algo deu errado' + err)
-    }
-}
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      setLoading(true);
+      const { data } = await userService.register({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      });
 
-const handleChange = (event) => {
-    setForm({...form, [event.target.name]: event.target.value})
-  }
+      if (data) {
+        alert("Usuário cadastrado com sucesso");
+        navigate("*"); // Redireciona para a página de login após o cadastro
+      } else {
+        alert("Usuário já cadastrado, faça o login!");
+      }
+
+      setLoading(false);
+    } catch (err) {
+      console.error('Erro ao fazer registro do usuário', err);
+      setLoading(false);
+      if (err.response && err.response.status === 409) {
+        alert('Usuário já cadastrado, faça o login!');
+      } else {
+        alert('Erro ao fazer registro do usuário. Por favor, tente novamente mais tarde.');
+      }
+        
+    }
+  };
+  const handleChange = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
 
   const validateInput = () => {
-    return validateEmail(form.email) 
-    && validatePassword(form.password)
-    && validateConfirmPassword(form.password, form.validatePassword)
-    && validateName(form.name)
-  }
+    const isValid =
+    validateEmail(form.email) &&
+    validatePassword(form.password) &&
+    validateConfirmPassword(form.password, form.confirmPassword) &&
+    validateName(form.name);
+
+    return isValid;
+ };
 
   return (
     <Container>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <h1>Faça o seu Cadastro</h1>
         <Input
           name='name'
@@ -73,7 +82,7 @@ const handleChange = (event) => {
           type='password'
         />
         <Input
-          name='validatePassword'
+          name='confirmPassword'
           placeholder='Confirme a sua senha'
           onChange={handleChange}
           type='password'
@@ -81,27 +90,15 @@ const handleChange = (event) => {
         <Button
           type='submit'
           text='Efetuar Cadastro!'
-          onClick={handleSubmit}
-          disabled={loading === true || !validateInput()}
+          disabled={loading || !validateInput()}
         />
         <SubContainerSign>
           <p>Já possui conta?</p>
-          <NavLink to="*">Login</NavLink>
+          <NavLink to="/auth">Login</NavLink>
         </SubContainerSign>
       </Form>
     </Container>
-    
-  )
-}
-
-
-
-
-
-
-
-
-
-
+  );
+};
 
 export default Register;

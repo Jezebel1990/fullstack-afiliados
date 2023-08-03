@@ -1,8 +1,7 @@
 import React from 'react';
 import Routering from './routes'
-import UserServices from '../Services/UserService';
+import userService from "../Services/UserService";
 
-const userService = new UserServices();
 
 const ProtectedRoutes = ({children}) => {
  const authenticatedUser = userService.authenticatedUser()
