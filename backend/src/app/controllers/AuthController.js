@@ -3,7 +3,7 @@ import authConfig from '../../config/auth'
 import User from '../models/User';
 
 class AuthController {
-    async create(request, response) {
+    async login (request, response) {
         const { email, password } = request.body;
 
         const user = await User.findOne({ where: { email }})
@@ -22,7 +22,10 @@ class AuthController {
             token: jwt.sign({ id }, authConfig.secret, {
                 expiresIn: authConfig.expiresIn,
             })
-        })
+        });
+    } catch (error) {
+        return response.status(500).json({ error: 'Erro ao fazer login' });
+      
     }
 }
 

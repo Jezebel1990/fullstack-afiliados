@@ -46,7 +46,7 @@ class UserController {
           if (userExists) {
             return response.status(409).json({ error: 'Usuário já cadastrado' });
           }
-      
+
           const { id, name, email, status, is_admin } = await User.create(validFields);
       
           return response.json({ id, name, email, status, is_admin });

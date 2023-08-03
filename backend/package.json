@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon src/server.js --watch src",
     "db:migrate": "npx sequelize db:migrate",
-    "db:seed": "npx sequelize db:seed:all"
+    "db:seed": "npx sequelize db:seed:all",
+    "debug": "ndb server.js"
   },
   "keywords": [
     "node",
