@@ -1,15 +1,17 @@
 import React, {useState} from "react";
-import { Container, Form } from "./styles";
-import Input from "../../Components/Input";
-import Button from "../../Components/Button";
+import { Container, Form, SubContainerSign } from "./styles";
+import Input from "../../Components/Input/index";
+import Button from "../../Components/Button/index";
 import { validateEmail, validatePassword } from "../../Utils/validators";
 import UserService from "../../Services/UserService";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const userServive = new UserService()
 
 const Login = () => {
  const [loading, setLoading] = useState()
  const [form, setForm] = useState([])
+ const navigate = useNavigate()
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,8 +22,8 @@ const Login = () => {
         if (response === true) {
             alert('Usuário Logado com Sucesso')
             //navegar para a  Home
+            navigate('/home')
         }
-     
         setLoading(false)
     }
     catch (err) {
@@ -38,12 +40,13 @@ const Login = () => {
    const validateInput = () => {
     return validateEmail(form.email) && validatePassword(form.password)
    }
-console.log('Form está válido?', validateInput())
+
 
 
     return (
     <Container>
      <Form>
+     <h1>Já tem conta?</h1>
         <Input
          name='email'
          placeholder='Digite o seu e-mail'
@@ -62,11 +65,11 @@ console.log('Form está válido?', validateInput())
         onClick={handleSubmit}
         disabled={loading === true || !validateInput()}
         />
-        <h1>Já tem conta?</h1>
-        <div>
+
+        <SubContainerSign>
           <p>Não possui conta?</p>
-          <a>Cadastrar</a>
-        </div>
+          <NavLink to="register">Cadastrar</NavLink>
+        </SubContainerSign>
         </Form>
         </Container>
     )
