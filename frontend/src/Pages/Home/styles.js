@@ -48,3 +48,7 @@ export const TableData = styled.td`
   border: 1px solid black;
   padding: 8px;
 `;
+
+export const FirstRow = styled.tr`
+  background-color: #00ff00; /* verde */
+`;

@@ -1,70 +1,141 @@
-# Getting Started with Create React App
+# Upload de transações
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este é um projeto Full Stack para gerenciar o upload de arquivos para transações de venda de produtos com cadastro ao sistema e acesso autorizado. 
 
-## Available Scripts
+## Tecnologias usadas: 
+- React;
+- JavaScript;
+- Node.js;
 
-In the project directory, you can run:
 
-### `npm start`
+O objetivo desse teste é avaliar as suas habilidades em programação.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Antes de começar
+ 
+- Prepare o projeto para ser disponibilizado no Github, copiando o conteúdo deste repositório para o seu (ou utilize o fork do projeto e aponte para o Github). Confirme que a visibilidade do projeto é pública (não esqueça de colocar no readme a referência a este challenge);
+- O projeto deve utilizar a Linguagem específica na sua Vaga (caso esteja se candidatando). Por exempo: Python, R, Scala e entre outras;
+- Considere como deadline 5 dias a partir do início do desafio. Caso tenha sido convidado a realizar o teste e não seja possível concluir dentro deste período, avise a pessoa que o convidou para receber instruções sobre o que fazer.
+- Documentar todo o processo de investigação para o desenvolvimento da atividade (README.md no seu repositório); os resultados destas tarefas são tão importantes do que o seu processo de pensamento e decisões à medida que as completa, por isso tente documentar e apresentar os seus hipóteses e decisões na medida do possível.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Descrição do projeto
 
-### `npm test`
+Surgiu uma nova demanda urgente e precisamos de uma área exclusiva para fazer o
+upload de um arquivo das transações feitas na venda de produtos por nossos
+clientes.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Nossa plataforma trabalha no modelo criador-afiliado, sendo assim um criador
+pode vender seus produtos e ter 1 ou mais afiliados também vendendo esses
+produtos, desde que seja paga uma comissão por venda.
 
-### `npm run build`
+Sua tarefa é construir uma interface web que possibilite o upload de um arquivo
+de transações de produtos vendidos, normalizar os dados e armazená-los em um
+banco de dados relacional.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Você deve utilizar o arquivo [sales.txt](sales.txt) para fazer o teste da
+aplicação. O formato esá descrito na seção "Formato do arquivo de entrada".
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Requisitos Funcionais
 
-### `npm run eject`
+Sua aplicação deve:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Ter uma tela (via formulário) para fazer o upload do arquivo
+2. Fazer o parsing do arquivo recebido, normalizar os dados e armazená-los em um
+   banco de dados relacional, seguindo as definições de interpretação do arquivo
+3. Exibir a lista das transações de produtos importadas por produtor/afiliado,
+   com um totalizador do valor das transações realizadas
+4. Fazer tratamento de erros no backend, e reportar mensagens de erro amigáveis
+   no frontend.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Requisitos Não Funcionais
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. A aplicação deve ser simples de configurar e rodar, compatível com ambiente
+   Unix. Você deve utilizar apenas bibliotecas gratuitas ou livres.
+2. Utilize docker para os diferentes serviços que compõe a aplicação para
+   que funcione facilmente fora do seu ambiente pessoal.
+3. Use qualquer banco de dados relacional.
+4. Use commits pequenos no Git e escreva uma boa descrição para cada um.
+5. Escreva unit tests tanto no backend quanto do frontend.
+6. Faça o código mais legível e limpo possível.
+7. Escreva o código (nomes e comentários) em inglês. A documentação pode ser em
+   português se preferir.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Requisitos Bônus
 
-## Learn More
+Sua aplicação não precisa, mas ficaremos impressionados se ela:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Tiver documentação das APIs do backend.
+2. Utilizar docker-compose para orquestar os serviços num todo.
+3. Ter testes de integração ou end-to-end.
+4. Tiver toda a documentação escrita em inglês fácil de entender. 
+5. Lidar com autenticação e/ou autorização.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Formato do arquivo de entrada
 
-### Code Splitting
+| Campo    | Início | Fim | Tamanho | Descrição                      |
+| -------- | ------ | --- | ------- | ------------------------------ |
+| Tipo     | 1      | 1   | 1       | Tipo da transação              |
+| Data     | 2      | 26  | 25      | Data - ISO Date + GMT          |
+| Produto  | 27     | 56  | 30      | Descrição do produto           |
+| Valor    | 57     | 66  | 10      | Valor da transação em centavos |
+| Vendedor | 67     | 86  | 20      | Nome do vendedor               |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Tipos de transação
 
-### Analyzing the Bundle Size
+Esses são os valores possíveis para o campo Tipo:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+| Tipo | Descrição         | Natureza | Sinal |
+| ---- | ----------------- | -------- | ----- |
+| 1    | Venda produtor    | Entrada  | +     |
+| 2    | Venda afiliado    | Entrada  | +     |
+| 3    | Comissão paga     | Saída    | -     |
+| 4    | Comissão recebida | Entrada  | +     |
 
-### Making a Progressive Web App
+## Avaliação
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Seu projeto será avaliado de acordo com os seguintes critérios:
 
-### Advanced Configuration
+1. Documentação do setup do ambiente e execução que rode a aplicação com
+   sucesso.
+2. Cumprimento dos [requisitos funcionais](#Requisitos-Funcionais) e
+   [não funcionais](#Requisitos-Nao-Funcionais).
+3. Boa estruturação do componentes e layout de código, mas sem over engineering.
+3. Legibilidade do código.
+4. Boa cobertura de testes.
+5. Claridade e extensão da documentação.
+6. Cumprimento de algum [requisito bônus](#Requisitos-Bonus).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Readme do Repositório
 
-### Deployment
+- Deve conter o título do projeto
+- Uma descrição sobre o projeto em frase
+- Deve conter uma lista com linguagem, framework e/ou tecnologias usadas
+- Como instalar e usar o projeto (instruções)
+- Não esqueça o [.gitignore](https://www.toptal.com/developers/gitignore)
+- Se está usando github pessoal, referencie que é um challenge by coodesh:  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Finalização e Instruções para a Apresentação
+
+Avisar sobre a finalização e enviar para correção.
+
+1. Confira se você respondeu o Scorecard anexado na Vaga que se candidatou;
+2. Confira se você respondeu o Mapeamento anexado na Vaga que se candidatou;
+3. Acesse [https://coodesh.com/challenges/review](https://coodesh.com/challenges/review);
+4. Adicione o repositório com a sua solução;
+5. Grave um vídeo, utilizando o botão na tela de solicitar revisão da Coodesh, com no máximo 5 minutos, com a apresentação do seu projeto. Utilize o tempo para:
+- Explicar o objetivo do desafio
+- Quais tecnologias foram utilizadas
+- Mostrar a aplicação em funcionamento
+- Foque em pontos obrigatórios e diferenciais quando for apresentar.
+6. Adicione o link da apresentação do seu projeto no README.md.
+7. Verifique se o Readme está bom e faça o commit final em seu repositório;
+8. Confira a vaga desejada;
+9. Envie e aguarde as instruções para seguir no processo. Sucesso e boa sorte. =)
+
+## Suporte
+
+Use a [nossa comunidade](https://discord.gg/rdXbEvjsWu) para tirar dúvidas sobre o processo ou envie uma mensagem diretamente a um especialista no chat da plataforma. 
+
+>  This is a challenge by [Coodesh](https://coodesh.com/)
