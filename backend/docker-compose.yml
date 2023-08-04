@@ -19,7 +19,7 @@ services:
       dockerfile: Dockerfile
       context: .
     ports:
-      - '3001:3000'
+      - '3000:3000'
     environment:
       NODE_ENV: development
       WAIT_HOSTS: transactions-db:5432

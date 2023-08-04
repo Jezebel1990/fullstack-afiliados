@@ -40,4 +40,4 @@ routes.get('/inputfiles/:id', InputfileController.getById);
 routes.put('/inputfiles/:id', InputfileController.update);
 routes.delete('/inputfiles/:id', InputfileController.delete);
 
-    export default routes;
+export default routes;
