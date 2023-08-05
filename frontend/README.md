@@ -1,12 +1,4 @@
-# Upload de transações
-
-Este é um projeto Full Stack para gerenciar o upload de arquivos para transações de venda de produtos com cadastro ao sistema e acesso autorizado. 
-
-## Tecnologias usadas: 
-- React;
-- JavaScript;
-- Node.js;
-
+# Fullstack Afiliados - Desafio
 
 O objetivo desse teste é avaliar as suas habilidades em programação.
 
@@ -114,7 +106,7 @@ Seu projeto será avaliado de acordo com os seguintes critérios:
 - Não esqueça o [.gitignore](https://www.toptal.com/developers/gitignore)
 - Se está usando github pessoal, referencie que é um challenge by coodesh:  
 
-
+>  This is a challenge by [Coodesh](https://coodesh.com/)
 
 ## Finalização e Instruções para a Apresentação
 
@@ -137,5 +129,3 @@ Avisar sobre a finalização e enviar para correção.
 ## Suporte
 
 Use a [nossa comunidade](https://discord.gg/rdXbEvjsWu) para tirar dúvidas sobre o processo ou envie uma mensagem diretamente a um especialista no chat da plataforma. 
-
->  This is a challenge by [Coodesh](https://coodesh.com/)
