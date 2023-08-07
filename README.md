@@ -37,5 +37,7 @@ npx jest serve.test.js
 
 Estando executado o backend e frontend, você será direcionado para a tela de login. Cadastre um usuário utilizando nome, email e uma senha. Após estar logado, clique no botão procurar para enviar este arquivo  [sales.txt](sales.txt) , em sequência clique no botão upload  para visualizar os dados do arquivo formatos. Clique na opção Logout localizado  na navbar para sair. 
 
+Link da apresentação do [projeto](https://youtu.be/aYHFgnGfkY4)
+
 
 >  This is a challenge by [Coodesh](https://coodesh.com/)
